@@ -5,7 +5,7 @@ I built this project to develop a better understanding of APIs and OOP. This pro
 
 <h2>How to use Daylight Calculator:</h2>
     1) Clone the repository to your local machine
-    2) If you do not have matplotlib or requests library, you will need those for the program to work
+    2) Run pip install -r requirements.txt in your terminal to get required libraries
     3) Create a free account on Position Stack to get an access token
         - Position stack requires a token to access its services
     4) Run the main.py file
