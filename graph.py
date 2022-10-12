@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import utils.math_funcs.find_avg as avg
+import find_avg as avg
 
 
 # Creates graph with x-axis for seasons and y-axis for hours

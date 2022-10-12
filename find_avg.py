@@ -1,4 +1,4 @@
-from utils.required_apis import *
+from required_apis import *
 
 # Seven days are taken from each season and then averaged
 SPRING = ['2021-03-20', '2021-03-27', '2021-04-03', '2021-04-24', '2021-05-01',

@@ -1,5 +1,5 @@
 # Run this script
-from utils.math_funcs.graph import create_graph
+from graph import create_graph
 
 def main():
     create_graph()
