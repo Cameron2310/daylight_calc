@@ -2,82 +2,38 @@
 # Push coordinates to Sunrise-Sunset API
 import requests
 
-# Class that creates necessary APIs
-class my_APIs:
-    def __init__(self, name, url, queries=None):
-        self.name = name
-        self.url = url
-        self.queries = queries
-    
-    # Getters & Setters
-    def get_queries(self):
-        return self.queries
-    
-    def set_queries(self, queries):
-        self.queries = queries
+def retrieve_coordinates():
 
-    def get_name(self):
-        return self.name
-    
-    def set_name(self, name):
-        self.name = name
-
-    def get_url(self):
-        return self.url
-    
-    def set_url(self, url):
-        self.url = url
-
-# Child Class that creates request to Position Stack
-
-class geo_APIs(my_APIs):
-    def __init__(self, name, url, queries=None):
-        super().__init__(name, url, queries)
-
-    def retrieve_coordinates(self):
-
-        token = input("Enter token: ")
-        print('''Must use one of the country codes below: 
+    token = input("Enter token: ")
+    print('''Must use one of the country codes below: 
 Australia = AU / Canada = CA / Ireland = IE / United States = US
 Sunrise-Sunset API only supports the above countries
 
 Cool places to check out Alert, CA; Barrow, US; Anchorage, US
 
-        ''')
-        country_of_choice = input("Enter a country: ")
-        city_of_choice = input("Enter a city: ")
+    ''')
+    country_of_choice = input("Enter a country: ")
+    city_of_choice = input("Enter a city: ")
+    base_url = 'http://api.positionstack.com/v1/forward?'
 
-        self.set_queries({'token': token, 'city':city_of_choice, 'country': country_of_choice})
+    url = f"{base_url}access_key={token}&query={city_of_choice}&country={country_of_choice}"
 
+    response = requests.get(url)
+    information = response.json()
 
-        query = self.get_queries()
-        self.set_url(f"{self.get_url()}access_key={query['token']}&query={query['city']}&country={query['country']}")
+    location_coordinates = [information["data"][0]['latitude'],information["data"][0]['longitude']]
 
-        response = requests.get(self.get_url())
-        information = response.json()
+    return location_coordinates
 
-        location_coordinates = [information["data"][0]['latitude'],information["data"][0]['longitude']]
+coordinates = retrieve_coordinates()
 
-        return location_coordinates
+def retrieve_day_light(date):
+    base_url = 'https://api.sunrise-sunset.org/json?'
+    url = f"{base_url}&lat={coordinates[0]}&lng={coordinates[1]}&date={date}"
 
-# Child Class that creates request to Sunrise-Sunset API
-class support_APIs(my_APIs):
-    def __init__(self, name, url, queries=None):
-        super().__init__(name, url, queries)
-        self.queries = coordinates.retrieve_coordinates()
+    response = requests.get(url)
+    answer = response.json()
 
-    def retrieve_day_light(self, date):
-        query = self.get_queries()
-        self.set_url(f"{self.get_url()}&lat={query[0]}&lng={query[1]}&date={date}")
-
-        response = requests.get(self.get_url())
-        answer = response.json()
-
-        daylight = answer["results"]["day_length"]
-        
-        return daylight
-
-
-coordinates = geo_APIs("Position Stack", 'http://api.positionstack.com/v1/forward?')
-daylight_api = support_APIs("Sunrise Sunset", 'https://api.sunrise-sunset.org/json?')
-
+    daylight = answer["results"]["day_length"]
+    
+    return daylight

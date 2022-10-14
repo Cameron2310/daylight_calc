@@ -15,7 +15,7 @@ WINTER = ['2021-12-22', '2022-01-10', '2022-01-30', '2022-02-07', '2022-02-25',
 
 # Convert time to mins
 def convert_time_to_mins(date):
-    time = daylight_api.retrieve_day_light(date)
+    time = retrieve_day_light(date)
     total_mins = 0
     list_time = time.split(':')
 
