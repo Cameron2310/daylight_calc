@@ -2,6 +2,7 @@
 # Push coordinates to Sunrise-Sunset API
 import requests
 
+
 def retrieve_coordinates():
 
     token = input("Enter token: ")
@@ -21,11 +22,14 @@ Cool places to check out Alert, CA; Barrow, US; Anchorage, US
     response = requests.get(url)
     information = response.json()
 
-    location_coordinates = [information["data"][0]['latitude'],information["data"][0]['longitude']]
+    location_coordinates = [information["data"][0]
+                            ['latitude'], information["data"][0]['longitude']]
 
     return location_coordinates
 
+
 coordinates = retrieve_coordinates()
+
 
 def retrieve_day_light(date):
     base_url = 'https://api.sunrise-sunset.org/json?'
@@ -35,5 +39,5 @@ def retrieve_day_light(date):
     answer = response.json()
 
     daylight = answer["results"]["day_length"]
-    
+
     return daylight
